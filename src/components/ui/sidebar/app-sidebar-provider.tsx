@@ -92,7 +92,7 @@ export function AppSidebarProvider({
 
   const focusMainIfNeeded = useCallback(() => {
     const sidebar = scopeRef.current?.querySelector<HTMLElement>(
-      "[data-side=left][data-collapsible]",
+      "[data-collapsible]",
     );
     if (!sidebar?.contains(document.activeElement)) return;
     const main = scopeRef.current?.querySelector<HTMLElement>("main#pages");
@@ -115,7 +115,7 @@ export function AppSidebarProvider({
     cancelClose();
     closeTimer.current = setTimeout(() => {
       const sidebar = scopeRef.current?.querySelector<HTMLElement>(
-        "[data-side=left][data-collapsible]",
+        "[data-collapsible]",
       );
       const focused = document.activeElement;
       const hasKeyboardFocus =
@@ -204,7 +204,7 @@ export function AppSidebarProvider({
 
   useLayoutEffect(() => {
     const sidebar = scopeRef.current?.querySelector<HTMLElement>(
-      "[data-side=left][data-collapsible]",
+      "[data-collapsible]",
     );
     if (!sidebar) return;
     const hidden = !isMobile && !pinned && !overlayOpen;
@@ -324,8 +324,8 @@ export function AppSidebarProvider({
             overlayReady &&
             "[&_[data-collapsible]>div:last-child]:invisible",
           isOverlay &&
-            "[&_[data-collapsible]>div:first-child]:w-0! [&_[data-collapsible]>div:last-child]:border-t [&_[data-collapsible]>div:last-child]:border-r [&_[data-collapsible]>div:last-child]:border-border [&_[data-collapsible]>div:last-child]:rounded-r-md [&_[data-collapsible]>div:last-child]:bg-sidebar [&_[data-collapsible]>div:last-child]:shadow-xl",
-          isOverlay && (innerWorkspace ? "[&>main]:ml-0!" : "[&>main]:ml-2!"),
+            "[&_[data-collapsible]>div:first-child]:w-0! [&_[data-collapsible]>div:last-child]:border-t [&_[data-collapsible]>div:last-child]:border-s [&_[data-collapsible]>div:last-child]:border-border [&_[data-collapsible]>div:last-child]:rounded-e-md [&_[data-collapsible]>div:last-child]:bg-sidebar [&_[data-collapsible]>div:last-child]:shadow-xl",
+          isOverlay && (innerWorkspace ? "[&>main]:ms-0!" : "[&>main]:ms-2!"),
           className,
         )}
         style={

@@ -11,6 +11,7 @@ import { initReactI18next } from "react-i18next";
 import { z } from "zod";
 
 export const LANGUAGES = {
+  ar: "العربية",
   en: "English",
   ta: "தமிழ்",
   ml: "മലയാളം",
@@ -20,6 +21,18 @@ export const LANGUAGES = {
 } as const;
 
 const DEFAULT_NAMESPACE = "care_fe";
+const RTL_LANGUAGES = new Set(["ar"]);
+
+const syncDocumentLanguage = (language: string) => {
+  if (typeof document === "undefined") return;
+
+  const languageCode = language.split("-")[0];
+  document.documentElement.setAttribute("lang", languageCode);
+  document.documentElement.setAttribute(
+    "dir",
+    RTL_LANGUAGES.has(languageCode) ? "rtl" : "ltr",
+  );
+};
 
 let pluginConfigs: PlugConfig[] = [];
 
@@ -50,6 +63,9 @@ const namespaceToUrl = (namespace: string) => {
 const fetchOptions = { cache: "no-store" as RequestCache };
 
 export async function initI18n() {
+  i18n.on("languageChanged", syncDocumentLanguage);
+  syncDocumentLanguage(i18n.language || "en");
+
   // Fetch plugin configurations from API
   try {
     const response = await callApi(plugConfigApi.list, {

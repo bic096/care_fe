@@ -59,16 +59,18 @@ export function PermissionsIndex() {
           <table className="w-full caption-bottom text-sm rounded-lg shadow-md z-20">
             <TableHeader>
               <TableRow>
-                <TableHead className="sticky top-0 left-0 z-20 whitespace-nowrap bg-white font-semibold">
+                <TableHead className="sticky start-0 top-0 z-20 whitespace-nowrap bg-white text-start font-semibold">
                   {t("permission")}
                 </TableHead>
                 {roles.map((role) => (
                   <TableHead
                     key={role.id}
-                    className="whitespace-nowrap h-32 max-w-8 min-w-8 sticky top-0 z-10 bg-white font-semibold"
+                    className="relative h-32 w-8 min-w-8 max-w-8 whitespace-nowrap sticky top-0 z-10 bg-white p-0 font-semibold"
                   >
-                    <div className="text-sm transform -rotate-90 w-24 px-2 -translate-x-1/3">
-                      {role.name}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="w-24 -rotate-90 px-2 text-center text-sm">
+                        {role.name}
+                      </div>
                     </div>
                   </TableHead>
                 ))}
@@ -80,7 +82,7 @@ export function PermissionsIndex() {
                   key={permission.slug}
                   className="even:bg-gray-100 odd:bg-gray-50 hover:bg-gray-100"
                 >
-                  <TableCell className="sticky left-0 z-10 max-w-48 font-semibold bg-inherit whitespace-normal">
+                  <TableCell className="sticky start-0 z-10 max-w-48 bg-inherit text-start font-semibold whitespace-normal">
                     {permission.name}
                   </TableCell>
                   {roles.map((role) => {

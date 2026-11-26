@@ -61,7 +61,11 @@ export function AppSidebar({
   sidebarFor = SidebarFor.FACILITY,
   ...props
 }: AppSidebarProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isRtl = i18n.dir() === "rtl";
+  const { side: sideProp, dir: dirProp, ...sidebarProps } = props;
+  const side = sideProp ?? (isRtl ? "right" : "left");
+  const dir = dirProp ?? i18n.dir();
 
   const { facilityId } = useRouteParams("/facility/:facilityId");
   const { locationId } = useRouteParams("/facility/:_/locations/:locationId");
@@ -161,14 +165,16 @@ export function AppSidebar({
 
   return (
     <Sidebar
+      side={side}
+      dir={dir}
       collapsible="offcanvas"
       variant={innerWorkspace ? "sidebar" : "inset"}
       onMouseEnter={cancelClose}
       onMouseLeave={scheduleClose}
       onFocusCapture={handleSidebarFocus}
       onBlurCapture={handleSidebarBlur}
-      {...props}
-      className={cn("z-30", props.className)}
+      {...sidebarProps}
+      className={cn("z-30", sidebarProps.className)}
     >
       <SidebarHeader
         inert={!showHeader}
@@ -216,7 +222,7 @@ export function AppSidebar({
                 type="button"
                 variant="ghost"
                 size="icon"
-                className="ml-auto"
+                className="ms-auto"
                 aria-label={t("close_sidebar")}
                 onClick={() => setOpenMobile(false)}
               >
